@@ -2,7 +2,6 @@ logging:
   level:
     root: INFO
     com.bol.kalaha.api: DEBUG
-    org.springframework.web.client.RestTemplate: DEBUG
 
 server:
   port: 8080
