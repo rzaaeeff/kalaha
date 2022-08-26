@@ -1,4 +1,4 @@
-package com.bol.kalaha.api.log;
+package com.bol.kalaha.api.logger;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,12 +104,14 @@ public class RzLogger {
     private enum FilterPattern {
         NAME_SURNAME("[A-Z]+[ ]+[A-Z]+[ ]?+[A-Z]?", "**** *******"),
         MOBILE_NUMBER("\\b(\\+?\\d{1,3}[- ]?)?\\d{9,10}\\b", "**********"),
+        TIN("\\b\\d{10}\\b", "**********"),
+        FIN("\\b([A-Z]+\\d[A-Z\\d]+)|(\\d+[A-Z][A-Z\\S]+)\\b", "*******"),
         EMAIL("\\b([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})\\b", "*@*.*"),
         AMOUNT_AND_IP("\\b[0-9]+\\.[0-9]+\\b", "*.*"),
         CARD_NUMBER("\\b\\d{16}\\b", "****************");
 
-        private final String regexp;
-        private final String mask;
+        private String regexp;
+        private String mask;
 
         FilterPattern(String regexp, String mask) {
             this.regexp = regexp;

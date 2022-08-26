@@ -1,6 +1,6 @@
 package com.bol.kalaha.api.controller;
 
-import com.bol.kalaha.api.log.RzLogger;
+import com.bol.kalaha.api.logger.RzLogger;
 import com.bol.kalaha.api.model.dto.ExceptionResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

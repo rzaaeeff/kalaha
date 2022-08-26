@@ -2,6 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.7.2'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
+    id 'groovy'
+    id 'jacoco'
 }
 
 group = 'com.bol.kalaha'
@@ -27,6 +29,11 @@ dependencies {
     // documentation
     implementation 'io.springfox:springfox-swagger2:2.9.2'
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+
+    // test
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.spockframework:spock-spring:2.0-M2-groovy-3.0'
+    testImplementation 'io.github.benas:random-beans:3.9.0'
 }
 
 archivesBaseName = "${project.name}"
@@ -34,4 +41,8 @@ archivesBaseName = "${project.name}"
 jar {
     enabled = true
     archiveFileName = "${project.name}-light.jar"
+}
+
+test {
+    useJUnitPlatform()
 }
