@@ -1,0 +1,32 @@
+<h1 align="center"> ms-kalaha-api </h1> <br>
+
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Features](#features)
+- [How to build & How to run](#how-to-build--how-to-run)
+- [Dependencies](#dependencies)
+
+## Introduction
+
+ms-kalaha-api is an API for a Kalaha game.
+
+If you need support, please, get in touch with **[rzaaeeff](https://github.com/rzaaeeff)**
+
+## Features
+
+## How to build & How to run
+
+1. Build:
+```shell script
+$ ./gradlew build
+```
+
+Run:
+```shell script
+$ java -jar /build/libs/ms-kalaha-api.jar
+```
+
+## Dependencies
+
+We are using PostgreSQL
