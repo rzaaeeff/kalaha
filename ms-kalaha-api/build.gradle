@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.2'
     id 'io.spring.dependency-management' version '1.0.12.RELEASE'
     id 'java'
+    id "org.sonarqube" version "3.0"
     id 'groovy'
     id 'jacoco'
 }
@@ -46,3 +47,28 @@ jar {
 test {
     useJUnitPlatform()
 }
+
+def coverageExclusionList = [
+        "**/com/bol/kalaha/api/model/**/*",
+        "**/com/bol/kalaha/api/Application.java",
+        "**/com/bol/kalaha/api/config/**/*",
+]
+
+sonarqube {
+    properties {
+        property 'sonar.coverage.exclusions', coverageExclusionList.join(", ")
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.8'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+test.finalizedBy jacocoTestReport
