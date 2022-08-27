@@ -1,4 +1,6 @@
-package com.bol.kalaha.core;
+package com.bol.kalaha.core.model;
+
+import com.bol.kalaha.core.exception.IllegalMoveException;
 
 import java.util.List;
 
@@ -35,7 +37,7 @@ public record Player(PlayerID id, List<House> houses, Store store) {
 
     private void checkHasSeeds(House house) {
         if (house.isEmpty()) {
-            throw new IllegalArgumentException("House must have seeds to take turn");
+            throw new IllegalMoveException("House must have seeds to take turn");
         }
     }
 
@@ -54,7 +56,7 @@ public record Player(PlayerID id, List<House> houses, Store store) {
 
     private House getHouse(int houseNum) {
         if (houseNum < 1 || houseNum > houses.size()) {
-            throw new IllegalArgumentException("House number must be between 1 and " + houses.size());
+            throw new IllegalMoveException("House number must be between 1 and " + houses.size());
         }
         return this.houses.get(houseNum - 1);
     }

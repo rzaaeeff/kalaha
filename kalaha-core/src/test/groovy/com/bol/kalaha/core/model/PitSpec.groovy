@@ -1,9 +1,8 @@
-package com.bol.kalaha.core
-
+package com.bol.kalaha.core.model
 
 import spock.lang.Specification
 
-import static com.bol.kalaha.core.PlayerID.P1
+import static com.bol.kalaha.core.model.PlayerID.P1
 
 class PitSpec extends Specification {
     def "should store seeds in house"() {

@@ -1,21 +1,15 @@
 package com.bol.kalaha.core;
 
+import com.bol.kalaha.core.exception.IllegalMoveException;
+import com.bol.kalaha.core.model.Board;
+import com.bol.kalaha.core.model.Pit;
+import com.bol.kalaha.core.model.Player;
+import com.bol.kalaha.core.model.PlayerID;
+
 public class Game {
 
-    public enum Status {
-        ACTIVE,
-        DRAW,
-        P1_WIN,
-        P2_WIN
-    }
-
-    public record Result(Status status, PlayerID next, Board board) {
-    }
-
     private Board board;
-
     private Player player;
-
     private Status status;
 
     public static Game create(Board board) {
@@ -28,7 +22,7 @@ public class Game {
 
     public Result move(PlayerID num, int house) {
         if (!player.id().equals(num)) {
-            throw new IllegalStateException(String.format("Player %s cannot take their turn yet", num));
+            throw new IllegalMoveException(String.format("Player %s cannot take their turn yet", num));
         }
 
         Pit landed = player.turn(house);
@@ -76,5 +70,15 @@ public class Game {
 
     public Player getActivePlayer() {
         return player;
+    }
+
+    public enum Status {
+        ACTIVE,
+        DRAW,
+        P1_WIN,
+        P2_WIN
+    }
+
+    public record Result(Status status, PlayerID next, Board board) {
     }
 }

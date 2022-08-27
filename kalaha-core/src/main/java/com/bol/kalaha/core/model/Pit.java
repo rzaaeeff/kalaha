@@ -1,21 +1,28 @@
-package com.bol.kalaha.core;
-
-import lombok.Getter;
+package com.bol.kalaha.core.model;
 
 import java.util.Optional;
 
-@Getter
 public abstract class Pit {
 
-    protected int seedCount;
-
-    private Pit next;
-
     protected final PlayerID player;
+    protected int seedCount;
+    private Pit next;
 
     Pit(PlayerID player, int seedCount) {
         this.player = player;
         this.seedCount = seedCount;
+    }
+
+    public int getSeedCount() {
+        return seedCount;
+    }
+
+    public Pit getNext() {
+        return next;
+    }
+
+    public PlayerID getPlayer() {
+        return player;
     }
 
     public void sow() {

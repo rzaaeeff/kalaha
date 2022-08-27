@@ -1,11 +1,13 @@
 package com.bol.kalaha.core
 
-
+import com.bol.kalaha.core.exception.IllegalMoveException
+import com.bol.kalaha.core.model.Board
+import com.bol.kalaha.core.model.Player
 import spock.lang.Specification
 
 import static com.bol.kalaha.core.Game.Status.ACTIVE
-import static com.bol.kalaha.core.PlayerID.P1
-import static com.bol.kalaha.core.PlayerID.P2
+import static com.bol.kalaha.core.model.PlayerID.P1
+import static com.bol.kalaha.core.model.PlayerID.P2
 
 class GameSpec extends Specification {
     def game = Game.create(Board.create())
@@ -24,7 +26,7 @@ class GameSpec extends Specification {
         game.move(P2, 1)
 
         then:
-        thrown(IllegalStateException.class)
+        thrown(IllegalMoveException.class)
     }
 
 

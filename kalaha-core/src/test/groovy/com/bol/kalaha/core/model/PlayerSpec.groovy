@@ -1,10 +1,10 @@
-package com.bol.kalaha.core
+package com.bol.kalaha.core.model
 
-
+import com.bol.kalaha.core.exception.IllegalMoveException
 import spock.lang.Specification
 
-import static com.bol.kalaha.core.PlayerID.P1
-import static com.bol.kalaha.core.PlayerID.P2
+import static com.bol.kalaha.core.model.PlayerID.P1
+import static com.bol.kalaha.core.model.PlayerID.P2
 
 class PlayerSpec extends Specification {
     def "player should sow seeds on turn"() {
@@ -35,7 +35,7 @@ class PlayerSpec extends Specification {
         player.turn(1)
 
         then:
-        thrown(IllegalArgumentException.class)
+        thrown(IllegalMoveException.class)
     }
 
     def "player cannot choose house below range"() {
@@ -46,7 +46,7 @@ class PlayerSpec extends Specification {
         player.turn(0)
 
         then:
-        thrown(IllegalArgumentException.class)
+        thrown(IllegalMoveException.class)
     }
 
 

@@ -1,22 +1,17 @@
-package com.bol.kalaha.core;
+package com.bol.kalaha.core.model;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.bol.kalaha.core.PlayerID.P1;
-import static com.bol.kalaha.core.PlayerID.P2;
+import static com.bol.kalaha.core.model.PlayerID.P1;
+import static com.bol.kalaha.core.model.PlayerID.P2;
 
 public class Board {
 
-    public record Players(Player player1, Player player2) {
-    }
-
     private List<House> houses;
-
     private List<Store> stores;
-
     private Players players;
 
     private Board() {
@@ -90,5 +85,8 @@ public class Board {
 
     public Players getPlayers() {
         return players;
+    }
+
+    public record Players(Player player1, Player player2) {
     }
 }

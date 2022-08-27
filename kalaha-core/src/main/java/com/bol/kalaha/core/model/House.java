@@ -1,4 +1,4 @@
-package com.bol.kalaha.core;
+package com.bol.kalaha.core.model;
 
 import java.util.Optional;
 

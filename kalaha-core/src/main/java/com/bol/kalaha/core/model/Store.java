@@ -1,4 +1,4 @@
-package com.bol.kalaha.core;
+package com.bol.kalaha.core.model;
 
 public class Store extends Pit {
     Store(PlayerID player) {
