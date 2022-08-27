@@ -25,6 +25,7 @@ dependencies {
 
     // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     // data
     compileOnly 'org.projectlombok:lombok'
@@ -36,7 +37,7 @@ dependencies {
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.spockframework:spock-spring:2.0-M2-groovy-3.0'
+    testImplementation 'org.spockframework:spock-spring:2.1-groovy-3.0'
     testImplementation 'io.github.benas:random-beans:3.9.0'
 }
 

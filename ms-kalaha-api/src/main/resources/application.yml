@@ -9,6 +9,11 @@ server:
 spring:
   application:
     name: ms-kalaha-api
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: kalaha_game_db
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
