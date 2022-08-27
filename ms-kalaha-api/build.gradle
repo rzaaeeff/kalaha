@@ -20,6 +20,9 @@ configurations {
 }
 
 dependencies {
+    // kalaha game core
+    implementation project(":kalaha-core")
+
     // spring
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
