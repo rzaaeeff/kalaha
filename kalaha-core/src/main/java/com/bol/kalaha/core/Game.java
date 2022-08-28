@@ -12,9 +12,10 @@ public class Game {
     private Player player;
     private Status status;
 
-    public static Game create(Board board, Player activePlayer) {
+    public static Game create(Board board, Player activePlayer, Status status) {
         var game = create(board);
         game.player = activePlayer;
+        game.status = status;
         return game;
     }
 
