@@ -1,6 +1,7 @@
 package com.bol.kalaha.api.mapper
 
 import com.bol.kalaha.api.dao.document.GameDocument
+import com.bol.kalaha.api.model.enums.GameStatus
 import com.bol.kalaha.core.Game
 import com.bol.kalaha.core.model.Board
 import io.github.benas.randombeans.EnhancedRandomBuilder
@@ -29,6 +30,12 @@ class GameMapperSpec extends Specification {
         document.stores == game.board.stores.seedCount
 
         document.activePlayerId == (game.activePlayer.id() == P1 ? PLAYER_1 : PLAYER_2)
+        document.status == switch (game.status) {
+            case Game.Status.ACTIVE: yield GameStatus.ONGOING
+            case Game.Status.DRAW: yield GameStatus.DRAW
+            case Game.Status.P1_WIN: yield GameStatus.PLAYER_1_WIN
+            case Game.Status.P2_WIN: yield GameStatus.PLAYER_2_WIN
+        }
 
         where:
         id << [null, UUID.randomUUID().toString()]
@@ -46,10 +53,16 @@ class GameMapperSpec extends Specification {
         def game = GameMapper.INSTANCE.documentToCoreModel(document)
 
         then:
-
-        game.player.id() == (document.activePlayerId == PLAYER_1 ? P1 : P2)
         game.board.houses.seedCount == document.houses
         game.board.stores.seedCount == document.stores
+
+        game.player.id() == (document.activePlayerId == PLAYER_1 ? P1 : P2)
+        game.status == switch (document.status) {
+            case GameStatus.ONGOING: yield Game.Status.ACTIVE;
+            case GameStatus.DRAW: yield Game.Status.DRAW;
+            case GameStatus.PLAYER_1_WIN: yield Game.Status.P1_WIN;
+            case GameStatus.PLAYER_2_WIN: yield Game.Status.P2_WIN;
+        }
 
         where:
         playerId << [PLAYER_1, PLAYER_2]

@@ -2,7 +2,9 @@ package com.bol.kalaha.api.mapper;
 
 import com.bol.kalaha.api.dao.document.GameDocument;
 import com.bol.kalaha.api.model.dto.GameDto;
+import com.bol.kalaha.api.model.enums.GameStatus;
 import com.bol.kalaha.core.Game;
+import com.bol.kalaha.core.Game.Status;
 import com.bol.kalaha.core.model.Board;
 import com.bol.kalaha.core.model.Pit;
 
@@ -29,11 +31,19 @@ public class GameMapper {
 
         var playerId = game.getActivePlayer().id() == P1 ? PLAYER_1 : PLAYER_2;
 
+        var gameStatus = switch (game.getStatus()) {
+            case ACTIVE -> GameStatus.ONGOING;
+            case DRAW -> GameStatus.DRAW;
+            case P1_WIN -> GameStatus.PLAYER_1_WIN;
+            case P2_WIN -> GameStatus.PLAYER_2_WIN;
+        };
+
         return GameDocument.builder()
                 .id(id)
                 .houses(houses)
                 .stores(stores)
                 .activePlayerId(playerId)
+                .status(gameStatus)
                 .build();
     }
 
@@ -46,7 +56,14 @@ public class GameMapper {
         var activePlayer = gameDocument.getActivePlayerId() == PLAYER_1 ?
                 board.getPlayers().player1() : board.getPlayers().player2();
 
-        return Game.create(board, activePlayer);
+        var status = switch (gameDocument.getStatus()) {
+            case ONGOING -> Status.ACTIVE;
+            case DRAW -> Status.DRAW;
+            case PLAYER_1_WIN -> Status.P1_WIN;
+            case PLAYER_2_WIN -> Status.P2_WIN;
+        };
+
+        return Game.create(board, activePlayer, status);
     }
 
     public GameDto documentToDto(GameDocument gameDocument) {

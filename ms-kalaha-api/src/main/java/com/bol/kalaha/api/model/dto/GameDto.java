@@ -1,5 +1,6 @@
 package com.bol.kalaha.api.model.dto;
 
+import com.bol.kalaha.api.model.enums.GameStatus;
 import com.bol.kalaha.api.model.enums.PlayerID;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,8 @@ public class GameDto {
     private List<Integer> stores;
 
     private PlayerID activePlayerId;
+
+    private GameStatus status;
 
     private LocalDateTime createdAt;
 }
