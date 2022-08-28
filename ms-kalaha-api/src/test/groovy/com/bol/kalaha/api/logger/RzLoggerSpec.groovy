@@ -4,7 +4,7 @@ import org.slf4j.Logger
 import spock.lang.Specification
 import spock.lang.Unroll
 
-class RzLoggerTest extends Specification {
+class RzLoggerSpec extends Specification {
     @Unroll
     def "Check trace"() {
         setup:
@@ -168,7 +168,7 @@ class RzLoggerTest extends Specification {
     @Unroll
     def "Check escaping unsafe characters"() {
         setup:
-        RzLogger dpLogger = RzLogger.getLogger(RzLoggerTest.class)
+        RzLogger dpLogger = RzLogger.getLogger(RzLoggerSpec.class)
 
         when:
         String result = dpLogger.filterValues(source)[0]
@@ -191,7 +191,7 @@ class RzLoggerTest extends Specification {
     @Unroll
     def "Check escaping sensitive data"() {
         setup:
-        RzLogger dpLogger = RzLogger.getLogger(RzLoggerTest.class)
+        RzLogger dpLogger = RzLogger.getLogger(RzLoggerSpec.class)
 
         when:
         String result = dpLogger.filterValues(source)[0]
