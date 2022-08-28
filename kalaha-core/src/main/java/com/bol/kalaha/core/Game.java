@@ -12,12 +12,30 @@ public class Game {
     private Player player;
     private Status status;
 
+    public static Game create(Board board, Player activePlayer) {
+        var game = create(board);
+        game.player = activePlayer;
+        return game;
+    }
+
     public static Game create(Board board) {
         Game game = new Game();
         game.board = board;
         game.player = board.getPlayers().player1();
         game.status = Status.ACTIVE;
         return game;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Status getStatus() {
+        return status;
     }
 
     public Result move(PlayerID num, int house) {
