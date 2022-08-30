@@ -76,6 +76,7 @@ public class GameMapper {
                 .stores(gameDocument.getStores())
                 .activePlayerId(gameDocument.getActivePlayerId())
                 .createdAt(gameDocument.getCreatedAt())
+                .status(gameDocument.getStatus())
                 .build();
     }
 

@@ -77,6 +77,7 @@ class GameMapperSpec extends Specification {
         dto.stores == document.stores
         dto.activePlayerId == document.activePlayerId
         dto.createdAt == document.createdAt
+        dto.status == document.status
     }
 
     def "merges core model into document"() {
