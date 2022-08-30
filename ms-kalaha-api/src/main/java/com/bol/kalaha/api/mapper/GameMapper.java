@@ -7,10 +7,14 @@ import com.bol.kalaha.core.Game;
 import com.bol.kalaha.core.Game.Status;
 import com.bol.kalaha.core.model.Board;
 import com.bol.kalaha.core.model.Pit;
+import com.bol.kalaha.core.model.PlayerID;
+
+import java.time.LocalDateTime;
 
 import static com.bol.kalaha.api.model.enums.PlayerID.PLAYER_1;
 import static com.bol.kalaha.api.model.enums.PlayerID.PLAYER_2;
 import static com.bol.kalaha.core.model.PlayerID.P1;
+import static com.bol.kalaha.core.model.PlayerID.P2;
 
 public class GameMapper {
     public static final GameMapper INSTANCE = new GameMapper();
@@ -73,5 +77,19 @@ public class GameMapper {
                 .activePlayerId(gameDocument.getActivePlayerId())
                 .createdAt(gameDocument.getCreatedAt())
                 .build();
+    }
+
+    public GameDocument mergeCoreModelIntoDocument(Game gameCore, GameDocument gameDocument) {
+        var result = coreModelToDocument(gameCore);
+
+        result.setId(gameDocument.getId());
+        result.setCreatedAt(gameDocument.getCreatedAt());
+        result.setUpdatedAt(LocalDateTime.now());
+
+        return result;
+    }
+
+    public PlayerID playerIdToCorePlayerId(com.bol.kalaha.api.model.enums.PlayerID playerID) {
+        return playerID == PLAYER_1 ? P1 : P2;
     }
 }

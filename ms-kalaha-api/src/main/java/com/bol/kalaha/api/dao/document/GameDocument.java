@@ -4,6 +4,7 @@ import com.bol.kalaha.api.model.enums.GameStatus;
 import com.bol.kalaha.api.model.enums.PlayerID;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -28,8 +29,10 @@ public class GameDocument {
     private GameStatus status;
 
     @CreatedDate
+    @EqualsAndHashCode.Exclude
     private LocalDateTime createdAt;
 
     @LastModifiedDate
+    @EqualsAndHashCode.Exclude
     private LocalDateTime updatedAt;
 }

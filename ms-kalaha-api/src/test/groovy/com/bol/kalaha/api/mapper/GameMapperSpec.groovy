@@ -78,4 +78,41 @@ class GameMapperSpec extends Specification {
         dto.activePlayerId == document.activePlayerId
         dto.createdAt == document.createdAt
     }
+
+    def "merges core model into document"() {
+        given:
+        def game = Game.create(Board.create())
+        def gameDocument = random.nextObject(GameDocument)
+
+        when:
+        def mergedDocument = GameMapper.INSTANCE.mergeCoreModelIntoDocument(game, gameDocument)
+
+        then:
+        mergedDocument.houses == game.board.houses.seedCount
+        mergedDocument.stores == game.board.stores.seedCount
+        mergedDocument.id == gameDocument.id
+        mergedDocument.createdAt == gameDocument.createdAt
+
+        mergedDocument.activePlayerId == (game.activePlayer.id() == P1 ? PLAYER_1 : PLAYER_2)
+        mergedDocument.status == switch (game.status) {
+            case Game.Status.ACTIVE: yield GameStatus.ONGOING
+            case Game.Status.DRAW: yield GameStatus.DRAW
+            case Game.Status.P1_WIN: yield GameStatus.PLAYER_1_WIN
+            case Game.Status.P2_WIN: yield GameStatus.PLAYER_2_WIN
+        }
+    }
+
+    @Unroll
+    def "converts player ID to core player ID"(playerId, expected) {
+        when:
+        def actual = GameMapper.INSTANCE.playerIdToCorePlayerId(playerId)
+
+        then:
+        actual == expected
+
+        where:
+        playerId | expected
+        PLAYER_1 | P1
+        PLAYER_2 | P2
+    }
 }
