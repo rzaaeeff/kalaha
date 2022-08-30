@@ -18,7 +18,7 @@ public class GameMapper {
     private GameMapper() {
     }
 
-    public GameDocument coreModelToDocument(Game game, String id) {
+    public GameDocument coreModelToDocument(Game game) {
         var houses = game.getBoard().getHouses()
                 .stream()
                 .map(Pit::getSeedCount)
@@ -39,7 +39,6 @@ public class GameMapper {
         };
 
         return GameDocument.builder()
-                .id(id)
                 .houses(houses)
                 .stores(stores)
                 .activePlayerId(playerId)

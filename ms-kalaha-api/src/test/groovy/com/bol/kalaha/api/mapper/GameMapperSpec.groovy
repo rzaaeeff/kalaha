@@ -17,15 +17,14 @@ class GameMapperSpec extends Specification {
     def random = EnhancedRandomBuilder.aNewEnhancedRandom()
 
     @Unroll
-    def "converts core model to document"(id) {
+    def "converts core model to document"() {
         given:
         def game = Game.create(Board.create())
 
         when:
-        def document = GameMapper.INSTANCE.coreModelToDocument(game, id)
+        def document = GameMapper.INSTANCE.coreModelToDocument(game)
 
         then:
-        document.id == id
         document.houses == game.board.houses.seedCount
         document.stores == game.board.stores.seedCount
 
@@ -36,9 +35,6 @@ class GameMapperSpec extends Specification {
             case Game.Status.P1_WIN: yield GameStatus.PLAYER_1_WIN
             case Game.Status.P2_WIN: yield GameStatus.PLAYER_2_WIN
         }
-
-        where:
-        id << [null, UUID.randomUUID().toString()]
     }
 
     @Unroll
@@ -58,10 +54,10 @@ class GameMapperSpec extends Specification {
 
         game.player.id() == (document.activePlayerId == PLAYER_1 ? P1 : P2)
         game.status == switch (document.status) {
-            case GameStatus.ONGOING: yield Game.Status.ACTIVE;
-            case GameStatus.DRAW: yield Game.Status.DRAW;
-            case GameStatus.PLAYER_1_WIN: yield Game.Status.P1_WIN;
-            case GameStatus.PLAYER_2_WIN: yield Game.Status.P2_WIN;
+            case GameStatus.ONGOING: yield Game.Status.ACTIVE
+            case GameStatus.DRAW: yield Game.Status.DRAW
+            case GameStatus.PLAYER_1_WIN: yield Game.Status.P1_WIN
+            case GameStatus.PLAYER_2_WIN: yield Game.Status.P2_WIN
         }
 
         where:

@@ -30,3 +30,7 @@ $ java -jar /build/libs/ms-kalaha-api.jar
 ## Dependencies
 
 We are using PostgreSQL
+
+## Future Goals
+1. Introduce auth mechanism (a separate auth adapter of some IDP) and use it to determine Player IDs for several validations
+2. When the load increases, to save up on the DB ops, introduce distributed caching layer with Redis (using write-back strategy)
