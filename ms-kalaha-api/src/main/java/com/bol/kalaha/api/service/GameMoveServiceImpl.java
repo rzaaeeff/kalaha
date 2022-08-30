@@ -5,7 +5,9 @@ import com.bol.kalaha.api.mapper.GameMapper;
 import com.bol.kalaha.api.model.dto.GameDto;
 import com.bol.kalaha.api.model.dto.GameMoveDto;
 import com.bol.kalaha.api.model.exception.GameNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameMoveServiceImpl implements GameMoveService {
     private final GameRepository repository;
 

@@ -6,7 +6,9 @@ import com.bol.kalaha.api.model.dto.GameDto;
 import com.bol.kalaha.api.model.exception.GameNotFoundException;
 import com.bol.kalaha.core.Game;
 import com.bol.kalaha.core.model.Board;
+import org.springframework.stereotype.Service;
 
+@Service
 public class GameServiceImpl implements GameService {
     private final GameRepository repository;
 
