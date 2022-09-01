@@ -71,4 +71,53 @@ class PlayerSpec extends Specification {
         opponentHouse.seedCount == 1
         opponentStore.seedCount == 0
     }
+
+    def "player cannot capture own house"() {
+        given:
+        def myHouse = new House(P1, 2)
+        def myStore = new Store(P1)
+        def opponentHouse = new House(P2, 0)
+        def opponentStore = new Store(P2)
+
+        opponentHouse.setOpposite(myHouse)
+
+        myHouse.setNext(myStore).setNext(opponentHouse).setNext(opponentStore).setNext(myHouse)
+
+        def player = new Player(P1, [myHouse], myStore)
+
+        when:
+        def landed = player.turn(1)
+
+        then:
+        landed == opponentHouse
+        myHouse.seedCount == 0
+        myStore.seedCount == 1
+        opponentHouse.seedCount == 1
+        opponentStore.seedCount == 0
+    }
+
+    def "player cannot capture empty house"() {
+        given:
+        def myHouses = [new House(P1, 1), new House(P1, 0)]
+        def myStore = new Store(P1)
+        def opponentHouse = new House(P2, 0)
+        def opponentStore = new Store(P2)
+
+        opponentHouse.setOpposite(myHouses[1])
+
+        myHouses[0].setNext(myHouses[1])
+
+        def player = new Player(P1, myHouses, myStore)
+
+        when:
+        def landed = player.turn(1)
+
+        then:
+        landed == myHouses[1]
+        myHouses[0].seedCount == 0
+        myHouses[1].seedCount == 1
+        myStore.seedCount == 0
+        opponentHouse.seedCount == 0
+        opponentStore.seedCount == 0
+    }
 }

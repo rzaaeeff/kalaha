@@ -40,10 +40,6 @@ public abstract class Pit {
     }
 
     public Integer capture() {
-        if (this.getOpposite().isEmpty()) {
-            return 0;
-        }
-
         return this.getOpposite().get().take();
     }
 

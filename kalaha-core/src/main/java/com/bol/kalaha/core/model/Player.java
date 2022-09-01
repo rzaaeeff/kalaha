@@ -32,12 +32,15 @@ public record Player(PlayerID id, List<House> houses, Store store) {
     }
 
     private boolean shouldCaptureOpposite(Pit pit) {
-        return pit.getSeedCount() == 1 && pit.getOpposite().isPresent();
+        return pit.getSeedCount() == 1 &&
+                pit.getOpposite().isPresent() &&
+                pit.getOpposite().get().getPlayer() != this.id() &&
+                pit.getOpposite().get().getSeedCount() > 0;
     }
 
     private void checkHasSeeds(House house) {
         if (house.isEmpty()) {
-            throw new IllegalMoveException("House must have seeds to take turn");
+            throw new IllegalMoveException("Chosen house doesn't have any seed");
         }
     }
 
@@ -56,7 +59,7 @@ public record Player(PlayerID id, List<House> houses, Store store) {
 
     private House getHouse(int houseNum) {
         if (houseNum < 1 || houseNum > houses.size()) {
-            throw new IllegalMoveException("House number must be between 1 and " + houses.size());
+            throw new IllegalMoveException("Player must choose their own house");
         }
         return this.houses.get(houseNum - 1);
     }

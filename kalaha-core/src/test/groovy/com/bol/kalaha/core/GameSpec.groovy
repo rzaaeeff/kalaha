@@ -2,7 +2,6 @@ package com.bol.kalaha.core
 
 import com.bol.kalaha.core.exception.IllegalMoveException
 import com.bol.kalaha.core.model.Board
-import com.bol.kalaha.core.model.Player
 import spock.lang.Specification
 
 import static com.bol.kalaha.core.Game.Status.ACTIVE
@@ -10,11 +9,15 @@ import static com.bol.kalaha.core.model.PlayerID.P1
 import static com.bol.kalaha.core.model.PlayerID.P2
 
 class GameSpec extends Specification {
-    def game = Game.create(Board.create())
+    private Game game
+
+    void setup() {
+        game = Game.create(Board.create())
+    }
 
     def "player one should take first turn"() {
         when:
-        Player player = game.activePlayer
+        def player = game.activePlayer
 
         then:
         player.id() == P1
