@@ -36,3 +36,11 @@ services:
       - DB_KALAHA_API_PASS=kalaha_db_pass
     ports:
       - 8080:8080
+
+  kalaha-ui:
+    image: nginx:alpine
+    container_name: "bol_kalaha_ui"
+    volumes:
+      - ./mf-kalaha-ui:/usr/share/nginx/html
+    ports:
+      - 80:80

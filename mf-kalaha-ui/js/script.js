@@ -8,12 +8,8 @@ function init() {
     let url = new URL(window.location.href);
     let id = url.searchParams.get("game-id");
 
-    if (id == null || id == undefined || id == "undefined") {
-        document.getElementById("create-game").style.display = "block";
-    } else {
-        document.getElementById("load-game").style.display = "block";
+    if (id != null && id != undefined && id.trim().length > 0 && id != "undefined") {
         document.getElementById("game-id").value = id;
-        document.getElementById("game-container").style.display = "block";
         loadGame(id);
     }
 }
@@ -25,9 +21,10 @@ function showResult(text) {
 }
 
 function decorate() {
-    console.log(game["status"]);
     switch (game["status"]) {
         case "ONGOING":
+            document.getElementById("game-container").style.display = "block";
+            
             // decorate houses
             for (let i = 0; i < game["houses"].length; i++) {
                 document.getElementById("h" + i).innerHTML = game["houses"][i];
@@ -83,7 +80,7 @@ function showIllegalMoveError(msg) {
 // ================== Client calls ==================
 
 function createNewGame() {
-    fetch("http://localhost:8080/v1/games", {
+    fetch(`http://localhost:8080/v1/games`, {
         method: "POST",
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
@@ -93,7 +90,7 @@ function createNewGame() {
             res.json().then(json => {
                 let id = json["id"];
                 if (id != null && id != undefined) {
-                    window.location.href = `../html/index.html?game-id=${id}&load-game=Load`;
+                    window.location.href = `../index.html?game-id=${id}`;
                 } else {
                     showUknownError();
                 }

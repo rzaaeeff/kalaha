@@ -1,15 +1,12 @@
 <html>
     <head>
         <title>Kalaha Game</title>
-        <link rel="stylesheet" href="../css/style.css">
-        <script src="../js/script.js" defer></script>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/script.js" defer></script>
     </head>
     <body>
         <div class="container">
-            <div id="create-game" style="display: none;">
-                <button onclick="return createNewGame();" style="font-size: 20px;">Create a new game</button>
-            </div>
-            <div id="load-game" style="display: none;">
+            <div id="load-game">
                 <form action="index.html">
                     <label for="game-id">Game ID: </label>
                     <input type="text" name="game-id" id="game-id">
@@ -21,7 +18,7 @@
                 <p class="player" id="p2">Player 2</p>
                 <div class="board">
                     <div class="section endsection">
-                        <div onclick="return showIllegalMoveError('Store cannot be chosen');" class="pit"><p class="bead" id="s1">6</p></div> 
+                        <div onclick="return showIllegalMoveError('Only houses can be chosen');" class="pit"><p class="bead" id="s1">6</p></div> 
                     </div>
                     <div class="section midsection">
                       <div class="midrow topmid">
@@ -42,7 +39,7 @@
                       </div>
                     </div>
                     <div class="section endsection">
-                        <div onclick="return showIllegalMoveError('Store cannot be chosen');" class="pit"><p class="bead" id="s0">6</p></div>        
+                        <div onclick="return showIllegalMoveError('Only houses can be chosen');" class="pit"><p class="bead" id="s0">6</p></div>        
                     </div>
                   </div>
                   <p class="player" id="p1">Player 1</p>
