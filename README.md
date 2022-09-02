@@ -1,10 +1,11 @@
-<h1 align="center"> Kalaha by Heydar Rzayev </h1> <br>
+<div style="text-align: center;"><h1> Kalaha by Heydar Rzayev </h1></div> <br>
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Features](#features)
 - [Architecture](#architecture)
+- [API documentation](ms-kalaha-api/README.md#api)
 - [How to build & How to run](#how-to-build--how-to-run)
 - [Dependencies](#dependencies)
 - [Support](#support)
@@ -28,8 +29,10 @@ This application features a UI where two players can take their turns and play. 
 
 ## Architecture
 
+![Solution Design image](docs/Current%20solution%20design.png)
+
 The application consists of two main and one auxiliary module:
-- [kalaha-core](kalaha-core) - Core library to provide gameplay experience
+- [kalaha-core](kalaha-core) - Core library to provide gameplay experience (auxiliary)
 - [ms-kalaha-api](ms-kalaha-api) - MicroService to provide backend/API
 - [mf-kalaha-ui](mf-kalaha-ui) - MicroFrontend to provide frontend/UI
 
@@ -38,13 +41,18 @@ The implementation is done using Java. The tests are written using Spock Framewo
 
 ms-kalaha-api is the main provider for the backend operations. It is designed to use any core library and database.
 In other words, it's not coupled with the core library used inside. In this case, the implementation 
-uses kalaha-core library and MongoDB. The microservice also provides presentation layer using REST API.
+uses kalaha-core library and MongoDB. Because of loose coupling any other core library can be easily integrated without 
+needing much refactor. The microservice also provides presentation layer using REST API.
 The implementation is done using Spring Boot on Java. The tests are written using Spock Framework on Groovy.
 
-mf-kalaha-ui is the main provider for the frontend operations. The implementation is done using HTML, CSS and VanillaJs.
+mf-kalaha-ui is the main provider for the frontend operations. The implementation is done using HTML, CSS and vanilla Javascript.
 
-> :info: UI could have been implemented using other technologies such as Angular, React, Vue or even Vaadin with Spring.
+> :information_source: UI could have been implemented using other technologies such as Angular, React, Vue or even Vaadin with Spring.
 > However, as I'm a backend engineer and not an expert in the frontend area, I decided to keep it simple and easy to code.
+
+## API Documentation
+
+
 
 ## How to build & How to run
 
@@ -56,7 +64,7 @@ $ ./start.sh
 ```
 
 2. Access:
-- UI: http://localhost
+- UI: http://localhost/index.html
 - API: http://localhost:8080/swagger-ui.html
 
 3. Stop:
@@ -91,5 +99,9 @@ Technologies:
 If you need support, please, get in touch with **[rzaaeeff](https://github.com/rzaaeeff)**.
 
 ## Future Goals
-- Introduce auth mechanism (a separate auth adapter of some IDP) and use it to determine Player IDs for several validations
-- When the load increases, to save up on the DB ops, introduce distributed caching layer with Redis (using write-back strategy)
+- Introduce auth mechanism (a separate auth adapter of some IDP) and use it to determine Player IDs for authorization.
+- When the load increases, to save up on the DB ops, introduce distributed caching layer with Redis (using write-back strategy).
+- Refactor frontend to use a better alternative, possible one these frameworks: React, Angular, Vue.
+
+After future goals have been reached, solution design would look like this:
+![Future Solution Design image](docs/Future%20solution%20design.png)
