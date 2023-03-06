@@ -1,0 +1,50 @@
+plugins {
+    id 'java'
+    id "org.sonarqube" version "3.0"
+    id 'groovy'
+    id 'jacoco'
+}
+
+group = 'com.bol.kalaha'
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    // test
+    testImplementation 'org.spockframework:spock-spring:2.1-groovy-3.0'
+}
+
+archivesBaseName = "${project.name}"
+
+test {
+    useJUnitPlatform()
+}
+
+def coverageExclusionList = []
+
+sonarqube {
+    properties {
+        property 'sonar.coverage.exclusions', coverageExclusionList.join(", ")
+    }
+}
+
+jacoco {
+    toolVersion = '0.8.8'
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+test.finalizedBy jacocoTestReport

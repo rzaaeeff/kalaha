@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <title>Kalaha Game</title>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/script.js" defer></script>
+    </head>
+    <body>
+        <div class="container">
+            <div id="load-game">
+                <form action="index.html">
+                    <label for="game-id">Game ID: </label>
+                    <input type="text" name="game-id" id="game-id">
+                    <input type="submit" name="load-game-submit" id="load-game-submit" value="Load">
+                    <button type="button" onclick="return createNewGame();">Create a new game</button>
+                </form>
+            </div>
+            <div id="game-container" style="display: none;">
+                <p class="player" id="p2">Player 2</p>
+                <div class="board">
+                    <div class="section endsection">
+                        <div onclick="return showIllegalMoveError('Only houses can be chosen');" class="pit"><p class="bead" id="s1">6</p></div> 
+                    </div>
+                    <div class="section midsection">
+                      <div class="midrow topmid">
+                        <div onclick="return move(12);" class="pit"><p class="bead" id="h11">6</p></div>
+                        <div onclick="return move(11);" class="pit"><p class="bead" id="h10">6</p></div>
+                        <div onclick="return move(10);" class="pit"><p class="bead" id="h9">6</p></div>
+                        <div onclick="return move(9);" class="pit"><p class="bead" id="h8">6</p></div>
+                        <div onclick="return move(8);" class="pit"><p class="bead" id="h7">6</p></div>
+                        <div onclick="return move(7);" class="pit"><p class="bead" id="h6">6</p></div>
+                      </div>
+                      <div class="midrow botmid">
+                        <div onclick="return move(1);" class="pit"><p class="bead" id="h0">6</p></div>
+                        <div onclick="return move(2);" class="pit"><p class="bead" id="h1">6</p></div>
+                        <div onclick="return move(3);" class="pit"><p class="bead" id="h2">6</p></div>
+                        <div onclick="return move(4);" class="pit"><p class="bead" id="h3">6</p></div>
+                        <div onclick="return move(5);" class="pit"><p class="bead" id="h4">6</p></div>
+                        <div onclick="return move(6);" class="pit"><p class="bead" id="h5">6</p></div>
+                      </div>
+                    </div>
+                    <div class="section endsection">
+                        <div onclick="return showIllegalMoveError('Only houses can be chosen');" class="pit"><p class="bead" id="s0">6</p></div>        
+                    </div>
+                  </div>
+                  <p class="player" id="p1">Player 1</p>
+            </div>
+            <div id="result-container" style="display: none;">
+                <h1 id="result-text"></h1>
+            </div>
+        </div>
+    </body>
+</html>

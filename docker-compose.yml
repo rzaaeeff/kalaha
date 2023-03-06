@@ -1,0 +1,46 @@
+version: "3.5"
+
+services:
+  mongodb:
+    image: mongo:4.0
+    hostname: mongo
+    container_name: "bol_kalaha_db"
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+    environment:
+      - MONGO_INITDB_DATABASE=kalaha_game_db
+      - MONGO_INITDB_ROOT_USERNAME=kalaha_admin_user
+      - MONGO_INITDB_ROOT_PASSWORD=kalaha_admin_pass
+    volumes:
+     - ./mongo-db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+     - ./mongo-db/volume:/data/db
+    command: mongod --smallfiles
+    expose:
+      - "27017"
+
+  kalaha-api:
+    build: ms-kalaha-api
+    container_name: "bol_kalaha_api"
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    environment:
+      - DB_KALAHA_API_HOST=mongo
+      - DB_KALAHA_API_PORT=27017
+      - DB_KALAHA_API_NAME=kalaha_game_db
+      - DB_KALAHA_API_USER=kalaha_db_user
+      - DB_KALAHA_API_PASS=kalaha_db_pass
+    ports:
+      - 8080:8080
+
+  kalaha-ui:
+    image: nginx:alpine
+    container_name: "bol_kalaha_ui"
+    volumes:
+      - ./mf-kalaha-ui:/usr/share/nginx/html
+    ports:
+      - 80:80

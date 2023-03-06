@@ -1,0 +1,4 @@
+rootProject.name = 'ms-kalaha-api'
+
+include ":kalaha-core"
+project(":kalaha-core").projectDir = file("../kalaha-core")

@@ -1,0 +1,21 @@
+logging:
+  level:
+    root: INFO
+    com.bol.kalaha.api: DEBUG
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ms-kalaha-api
+  data:
+    mongodb:
+      host: ${DB_KALAHA_API_HOST}
+      port: ${DB_KALAHA_API_PORT}
+      database: ${DB_KALAHA_API_NAME}
+      username: ${DB_KALAHA_API_USER}
+      password: ${DB_KALAHA_API_PASS}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
